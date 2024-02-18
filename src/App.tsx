@@ -10,7 +10,7 @@ const dummy = [
 
 function App() {
   const [todos, setTodos] = useState(dummy);
-  const [selectedToDo, setSelectedTodo] = useState(todos[0]);
+  const [selectedToDo, setSelectedTodo] = useState(todos?.[0]);
 
   return (
     <main className="bg-gray-50 h-screen flex">
