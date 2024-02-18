@@ -1,4 +1,3 @@
-import React from "react";
 import { IeachTodo } from "../Interfaces/DataTypes";
 import { IoMdCheckmark } from "react-icons/io";
 
@@ -11,7 +10,7 @@ const ToDoCard = ({
   id: number;
   name: string;
   //   handleSelect: () => void;
-  handleSelect: any;
+  handleSelect: (x: IeachTodo) => void;
   selectedTodo: IeachTodo;
 }) => {
   return (

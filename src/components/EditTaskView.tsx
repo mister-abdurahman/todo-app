@@ -3,8 +3,8 @@ import { IeachTodo, Itodos } from "../Interfaces/DataTypes";
 
 interface PropsType {
   selectedTodo: IeachTodo;
-  handleClickOnSelectedToDo: any;
-  handleClickOnToDoList: any;
+  handleClickOnSelectedToDo: (x: object) => void;
+  handleClickOnToDoList: (x: any) => void;
 }
 
 const EditTaskView = ({
@@ -13,7 +13,6 @@ const EditTaskView = ({
   handleClickOnToDoList,
 }: PropsType) => {
   const [todoTitle, setTodoTitle] = useState(selectedTodo?.name || "");
-  console.log(selectedTodo);
 
   const handleSave = () => {
     handleClickOnSelectedToDo({});

@@ -13,11 +13,12 @@ function App() {
   const [selectedToDo, setSelectedTodo] = useState(todos?.[0]);
 
   return (
-    <main className="bg-gray-50 h-screen flex">
+    <main className="bg-gray-50 h-screen flex overflow-hidden">
       <LeftBar
         list={todos}
         selectedTodo={selectedToDo}
         handleSelect={setSelectedTodo}
+        handleClickOnToDoList={setTodos}
       />
       <EditTaskView
         selectedTodo={selectedToDo}

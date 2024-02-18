@@ -1,4 +1,3 @@
-import React from "react";
 import profilePic from "../assets/profile-pic.png";
 import GoPro from "./GoPro";
 import ToDoCard from "./ToDoCard";
@@ -9,12 +8,29 @@ import { IeachTodo, Itodos } from "../Interfaces/DataTypes";
 interface PropsType {
   list: Itodos;
   selectedTodo: IeachTodo;
-  handleSelect: any;
+  handleSelect: (x: IeachTodo) => void;
+  handleClickOnToDoList: (x: Itodos) => void;
 }
 
-export const LeftBar = ({ list, selectedTodo, handleSelect }: PropsType) => {
+export const LeftBar = ({
+  list,
+  selectedTodo,
+  handleSelect,
+  handleClickOnToDoList,
+}: PropsType) => {
+  const createTodo = () => {
+    // let newList = list;
+    list?.splice(list.length, 0, {
+      id: list[list.length - 1]?.id + 1,
+      name: "Enter To-do Here",
+    });
+
+    handleClickOnToDoList(list);
+    handleSelect(list[list.length - 1]);
+  };
+
   return (
-    <div className="basis-1/3 relative border-l-4 border-gray-300 shadow-xl">
+    <div className="basis-1/3 flex flex-col relative border-l-4 border-gray-300 shadow-xl">
       <header className="bg-primary pl-6 flex gap-2 py-6">
         <figure className="w-14">
           <img src={profilePic} alt="User Profile Picture" />
@@ -28,7 +44,7 @@ export const LeftBar = ({ list, selectedTodo, handleSelect }: PropsType) => {
       </header>
       <GoPro />
 
-      <div className="mt-3 flex flex-col gap-3 px-4">
+      <div className="mt-3 flex flex-col gap-3 px-4 overflow-auto">
         {list?.map((el: IeachTodo) => (
           <ToDoCard
             id={el.id}
@@ -39,7 +55,10 @@ export const LeftBar = ({ list, selectedTodo, handleSelect }: PropsType) => {
         ))}
       </div>
 
-      <button className="absolute bottom-4 right-4 rounded-full bg-primary text-xl font-bold p-4">
+      <button
+        onClick={createTodo}
+        className="absolute bottom-4 right-4 rounded-full bg-primary text-xl font-bold p-4"
+      >
         <FaPlus fill="white" />
       </button>
     </div>
