@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IeachTodo } from "../Interfaces/DataTypes";
 
 interface PropsType {
   selectedTodo: IeachTodo;
+  handleClickOnSelectedToDo: any;
 }
 
-const EditTaskView = ({ selectedTodo }: PropsType) => {
-  console.log(selectedTodo);
+const EditTaskView = ({
+  selectedTodo,
+  handleClickOnSelectedToDo,
+}: PropsType) => {
+  const [todoTitle, setTodoTitle] = useState(selectedTodo?.name || "");
+
+  useEffect(
+    function () {
+      setTodoTitle(selectedTodo?.name);
+    },
+    [selectedTodo]
+  );
+
   return (
     <div className="basis-2/3 flex flex-col">
       <header className="bg-primary">
@@ -20,7 +32,8 @@ const EditTaskView = ({ selectedTodo }: PropsType) => {
         <input
           type="text"
           id="task"
-          value={selectedTodo?.name}
+          value={todoTitle}
+          onChange={(e) => setTodoTitle(e.target.value)}
           className="w-1/2 border-2 border-gray-200 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-gray-400"
         />
       </div>
@@ -29,7 +42,12 @@ const EditTaskView = ({ selectedTodo }: PropsType) => {
         <button className="basis-1/3 bg-tertiary rounded-md py-2">
           Delete
         </button>
-        <button className="basis-2/3 bg-primary_dark rounded-md py-2">
+        <button
+          onClick={() =>
+            handleClickOnSelectedToDo({ id: selectedTodo?.id, name: todoTitle })
+          }
+          className="basis-2/3 bg-primary_dark rounded-md py-2"
+        >
           Save
         </button>
       </div>
